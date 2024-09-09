@@ -297,3 +297,69 @@ input[type='color'] {
         content: " \2190";
     }
 }
+
+/* Add these new styles at the end of the file */
+.ticket-conversation {
+    margin: 20px 0;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.message-bubble {
+    padding: 10px 15px;
+    border-radius: 20px;
+    margin-bottom: 10px;
+    max-width: 75%;
+    clear: both;
+}
+
+.original-message {
+    background-color: #e5e5ea;
+    float: left;
+}
+
+.reply {
+    background-color: #007aff;
+    color: white;
+    float: right;
+}
+
+.reply-form {
+    margin: 20px 0;
+}
+
+.reply-form textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    resize: vertical;
+}
+
+.reply-form button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #007aff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.message-bubble.logged-in {
+    background-color: #d4edda;
+    float: right;
+}
+
+.message-bubble.logged-out {
+    background-color: #e5e5ea;
+    float: left;
+}
+
+.message-bubble small {
+    display: block;
+    font-size: 0.8em;
+    color: #6c757d;
+    text-align: right;
+}

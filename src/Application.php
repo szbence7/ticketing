@@ -48,12 +48,20 @@ class Application extends BaseApplication
         // Call parent to load bootstrap from files.
         parent::bootstrap();
 
-        if (PHP_SAPI !== 'cli') {
+        if (PHP_SAPI === 'cli') {
+            $this->bootstrapCli();
+        } else {
             FactoryLocator::add(
                 'Table',
                 (new TableLocator())->allowFallbackClass(false)
             );
         }
+
+        if (Configure::read('debug')) {
+            $this->addPlugin('DebugKit');
+        }
+
+        // Add this line to load the CakeDC/Users plugin
         $this->addPlugin(\CakeDC\Users\Plugin::class);
     }
 
@@ -104,5 +112,11 @@ class Application extends BaseApplication
      */
     public function services(ContainerInterface $container): void
     {
+    }
+
+    protected function bootstrapCli(): void
+    {
+        $this->addOptionalPlugin('Cake/Repl');
+        $this->addOptionalPlugin('Bake');
     }
 }

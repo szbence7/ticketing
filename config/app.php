@@ -417,4 +417,8 @@ return [
         'safeTld' => env('DEBUG_KIT_SAFE_TLD', null),
         'ignoreAuthorization' => env('DEBUG_KIT_IGNORE_AUTHORIZATION', false)
     ],
+    'Plugins' => [
+        // ... other plugins ...
+        'CakeDC/Users' => [],
+    ],
 ];

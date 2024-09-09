@@ -52,6 +52,14 @@ class TicketHistoriesTable extends Table
             'foreignKey' => 'status_id',
             'joinType' => 'INNER',
         ]);
+
+        $this->addBehavior('Timestamp', [
+            'events' => [
+                'Model.beforeSave' => [
+                    'changed_at' => 'new',
+                ]
+            ]
+        ]);
     }
 
     /**
@@ -71,9 +79,7 @@ class TicketHistoriesTable extends Table
             ->notEmptyString('status_id');
 
         $validator
-            ->uuid('changed_by')
-            ->requirePresence('changed_by', 'create')
-            ->notEmptyString('changed_by');
+            ->allowEmptyString('changed_by');
 
         $validator
             ->dateTime('changed_at')

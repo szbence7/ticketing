@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use Cake\Core\Configure;
+
 /**
  * Tickets Controller
  *
@@ -136,5 +138,30 @@ class TicketsController extends AppController
         ])->toArray();
         
         $this->set(compact('ticket', 'assignment', 'users'));
+    }
+
+    public function addReply($id = null)
+    {
+        $this->request->allowMethod(['post']);
+        $ticket = $this->Tickets->get($id);
+        
+        $user = $this->getRequest()->getAttribute('identity');
+        $changed_by = $user ? $user->id : null;
+        
+        $ticketHistory = $this->Tickets->TicketHistories->newEntity([
+            'ticket_id' => $id,
+            'status_id' => $ticket->status_id,
+            'changed_by' => $changed_by,
+            'changed_at' => date('Y-m-d H:i:s'),
+            'reply_content' => $this->request->getData('reply_content')
+        ]);
+        
+        if ($this->Tickets->TicketHistories->save($ticketHistory)) {
+            $this->Flash->success(__('Your reply has been added.'));
+        } else {
+            $this->Flash->error(__('Unable to add reply. Please, try again.'));
+            $this->Flash->error(print_r($ticketHistory->getErrors(), true));
+        }
+        return $this->redirect(['action' => 'view', $id]);
     }
 }

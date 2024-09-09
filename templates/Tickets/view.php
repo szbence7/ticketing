@@ -54,9 +54,25 @@
             </table>
             <div class="text">
                 <strong><?= __('Description') ?></strong>
-                <blockquote>
-                    <?= $this->Text->autoParagraph(h($ticket->description)); ?>
-                </blockquote>
+                <div class="ticket-conversation">
+                    <div class="message-bubble original-message">
+                        <?= $this->Text->autoParagraph(h($ticket->description)); ?>
+                    </div>
+                    <?php if (!empty($ticket->ticket_histories)): ?>
+                        <?php foreach ($ticket->ticket_histories as $history): ?>
+                            <div class="message-bubble reply <?= $history->changed_by ? 'logged-in' : 'logged-out' ?>">
+                                <?= $this->Text->autoParagraph(h($history->reply_content)); ?>
+                                <small><?= h($history->changed_at) ?></small>
+                            </div>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                </div>
+                <div class="reply-form">
+                    <?= $this->Form->create(null, ['url' => ['action' => 'addReply', $ticket->id]]) ?>
+                    <?= $this->Form->textarea('reply_content', ['rows' => 3, 'placeholder' => 'Type your reply here...']) ?>
+                    <?= $this->Form->button('Submit Reply') ?>
+                    <?= $this->Form->end() ?>
+                </div>
             </div>
             <div class="related">
                 <h4><?= __('Related Tags') ?></h4>
