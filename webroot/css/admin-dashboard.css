@@ -1,0 +1,26 @@
+.row {
+    display: flex;
+}
+.column-25 {
+    width: 25%;
+    padding: 20px;
+}
+.column-75 {
+    width: 75%;
+    padding: 20px;
+}
+.sidebar {
+    background-color: #f1f1f1;
+    padding: 20px;
+}
+.side-nav {
+    list-style-type: none;
+    padding: 0;
+}
+.side-nav li {
+    margin-bottom: 10px;
+}
+.heading {
+    font-weight: bold;
+    margin-top: 20px;
+}
