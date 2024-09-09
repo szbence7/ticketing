@@ -2,7 +2,6 @@
 /**
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Ticket $ticket
- * @var \Cake\Collection\CollectionInterface|string[] $users
  * @var \Cake\Collection\CollectionInterface|string[] $categories
  * @var \Cake\Collection\CollectionInterface|string[] $ticketPriorities
  * @var \Cake\Collection\CollectionInterface|string[] $statuses
@@ -22,7 +21,8 @@
             <fieldset>
                 <legend><?= __('Add Ticket') ?></legend>
                 <?php
-                    echo $this->Form->control('user_id', ['options' => $users]);
+                    echo $this->Form->control('name');
+                    echo $this->Form->control('email');
                     echo $this->Form->control('subject');
                     echo $this->Form->control('description');
                     echo $this->Form->control('category_id', ['options' => $categories]);

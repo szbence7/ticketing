@@ -38,6 +38,8 @@ class Ticket extends Entity
      * @var array<string, bool>
      */
     protected array $_accessible = [
+        'name' => true,
+        'email' => true,
         'user_id' => true,
         'subject' => true,
         'description' => true,

@@ -55,7 +55,7 @@ class TicketsTable extends Table
 
         $this->belongsTo('Users', [
             'foreignKey' => 'user_id',
-            'joinType' => 'INNER',
+            'joinType' => 'LEFT',
         ]);
         $this->belongsTo('Categories', [
             'foreignKey' => 'category_id',
@@ -91,8 +91,19 @@ class TicketsTable extends Table
     public function validationDefault(Validator $validator): Validator
     {
         $validator
+            ->scalar('name')
+            ->maxLength('name', 255)
+            ->requirePresence('name', 'create')
+            ->notEmptyString('name');
+
+        $validator
+            ->email('email')
+            ->requirePresence('email', 'create')
+            ->notEmptyString('email');
+
+        $validator
             ->uuid('user_id')
-            ->notEmptyString('user_id');
+            ->allowEmptyString('user_id');
 
         $validator
             ->scalar('subject')

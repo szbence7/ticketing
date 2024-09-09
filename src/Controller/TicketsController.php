@@ -46,20 +46,19 @@ class TicketsController extends AppController
     {
         $ticket = $this->Tickets->newEmptyEntity();
         if ($this->request->is('post')) {
-            $ticket = $this->Tickets->patchEntity($ticket, $this->request->getData());
+            $data = $this->request->getData();
+            $ticket = $this->Tickets->patchEntity($ticket, $data);
             if ($this->Tickets->save($ticket)) {
                 $this->Flash->success(__('The ticket has been saved.'));
-
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The ticket could not be saved. Please, try again.'));
         }
-        $users = $this->Tickets->Users->find('list', limit: 200)->all();
         $categories = $this->Tickets->Categories->find('list', limit: 200)->all();
         $ticketPriorities = $this->Tickets->TicketPriorities->find('list', limit: 200)->all();
         $statuses = $this->Tickets->Statuses->find('list', limit: 200)->all();
         $tags = $this->Tickets->Tags->find('list', limit: 200)->all();
-        $this->set(compact('ticket', 'users', 'categories', 'ticketPriorities', 'statuses', 'tags'));
+        $this->set(compact('ticket', 'categories', 'ticketPriorities', 'statuses', 'tags'));
     }
 
     /**
