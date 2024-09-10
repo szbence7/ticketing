@@ -55,5 +55,6 @@ class Ticket extends Entity
         'assignments' => true,
         'ticket_histories' => true,
         'tags' => true,
+        'ticket_number' => true,
     ];
 }

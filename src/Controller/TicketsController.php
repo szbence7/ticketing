@@ -32,7 +32,7 @@ class TicketsController extends AppController
     public function index()
     {
         $query = $this->Tickets->find()
-            ->contain(['Users', 'Categories', 'TicketPriorities', 'Statuses']);
+            ->contain(['Users', 'Categories', 'TicketPriorities', 'Statuses', 'Tags']);
         $tickets = $this->paginate($query);
 
         $this->set(compact('tickets'));

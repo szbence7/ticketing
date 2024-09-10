@@ -147,4 +147,25 @@ class TicketsTable extends Table
 
         return $rules;
     }
+
+    public function beforeSave($event, $entity, $options)
+    {
+        if ($entity->isNew() && empty($entity->ticket_number)) {
+            $entity->ticket_number = $this->generateUniqueTicketNumber();
+        }
+        return true;
+    }
+
+    private function generateUniqueTicketNumber()
+    {
+        $characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        do {
+            $ticketNumber = '';
+            for ($i = 0; $i < 15; $i++) {
+                $ticketNumber .= $characters[rand(0, strlen($characters) - 1)];
+            }
+        } while ($this->exists(['ticket_number' => $ticketNumber]));
+        
+        return $ticketNumber;
+    }
 }
