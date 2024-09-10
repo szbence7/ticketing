@@ -21,7 +21,7 @@
             <table>
                 <tr>
                     <th><?= __('User') ?></th>
-                    <td><?= $ticket->hasValue('user') ? $this->Html->link($ticket->user->username, ['controller' => 'Users', 'action' => 'view', $ticket->user->id]) : '' ?></td>
+                    <td><?= h($ticket->name) ?></td>
                 </tr>
                 <tr>
                     <th><?= __('Subject') ?></th>

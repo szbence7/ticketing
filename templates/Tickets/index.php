@@ -26,7 +26,7 @@
                 <?php foreach ($tickets as $ticket): ?>
                 <tr>
                     <td><?= $this->Number->format($ticket->id) ?></td>
-                    <td><?= $ticket->hasValue('user') ? $this->Html->link($ticket->user->username, ['controller' => 'Users', 'action' => 'view', $ticket->user->id]) : '' ?></td>
+                    <td><?= h($ticket->name) ?></td>
                     <td><?= h($ticket->subject) ?></td>
                     <td><?= $ticket->hasValue('category') ? $this->Html->link($ticket->category->name, ['controller' => 'Categories', 'action' => 'view', $ticket->category->id]) : '' ?></td>
                     <td><?= $ticket->hasValue('ticket_priority') ? $this->Html->link($ticket->ticket_priority->priority_name, ['controller' => 'TicketPriorities', 'action' => 'view', $ticket->ticket_priority->id]) : '' ?></td>

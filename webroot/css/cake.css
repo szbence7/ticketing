@@ -399,6 +399,8 @@ input[type='color'] {
     background-color: #D33C43;
     color: white;
     text-decoration: none;
+    display: flex;
+    align-items: center;
 }
 
 .top-nav-links .button:hover {

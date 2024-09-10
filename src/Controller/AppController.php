@@ -18,6 +18,7 @@ namespace App\Controller;
 
 use Cake\Controller\Controller;
 use CakeDC\Users\Controller\Component\UsersAuthComponent;
+use Cake\Event\EventInterface;
 
 /**
  * Application Controller
@@ -43,9 +44,16 @@ class AppController extends Controller
         parent::initialize();
 
         $this->loadComponent('CakeDC/Users.UsersAuth');
+        $this->loadComponent('Flash');
+    }
 
-        // Load any other components you need
-        // $this->loadComponent('FormProtection');
-        // $this->loadComponent('Security');
+    public function beforeFilter(EventInterface $event)
+    {
+        parent::beforeFilter($event);
+        
+        if ($this->request->getParam('controller') === 'Tickets') {
+            // Allow access to specific actions in the Tickets controller
+            $this->UsersAuth->setConfig('allowUnauthenticated', ['index', 'add']);
+        }
     }
 }

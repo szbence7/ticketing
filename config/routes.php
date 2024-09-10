@@ -76,6 +76,8 @@ return function (RouteBuilder $routes): void {
          * routes you want in your application.
          */
         $builder->fallbacks();
+
+        $builder->connect('/tickets/add', ['controller' => 'Tickets', 'action' => 'add']);
     });
 
     /*

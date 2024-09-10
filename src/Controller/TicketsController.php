@@ -3,7 +3,8 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use Cake\Core\Configure;
+use App\Controller\AppController;
+use Cake\Event\EventInterface;
 
 /**
  * Tickets Controller
@@ -12,10 +13,15 @@ use Cake\Core\Configure;
  */
 class TicketsController extends AppController
 {
-    public function initialize(): void
+    public function beforeFilter(EventInterface $event)
     {
-        parent::initialize();
-        $this->loadComponent('Flash');
+        parent::beforeFilter($event);
+        
+        // Allow unauthenticated access to the index and add actions
+        $this->UsersAuth->setConfig('authenticate', [
+            'actions' => ['index', 'add'],
+            'enabled' => false
+        ]);
     }
 
     /**
@@ -67,18 +73,24 @@ class TicketsController extends AppController
     {
         $ticket = $this->Tickets->newEmptyEntity();
         if ($this->request->is('post')) {
-            $data = $this->request->getData();
-            $ticket = $this->Tickets->patchEntity($ticket, $data);
+            $ticket = $this->Tickets->patchEntity($ticket, $this->request->getData());
+            
+            // Set the user_id to the current logged-in user's id, if available
+            $user = $this->request->getAttribute('identity');
+            if ($user) {
+                $ticket->user_id = $user->id;
+            }
+            
             if ($this->Tickets->save($ticket)) {
                 $this->Flash->success(__('The ticket has been saved.'));
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The ticket could not be saved. Please, try again.'));
         }
-        $categories = $this->Tickets->Categories->find('list', limit: 200)->all();
-        $ticketPriorities = $this->Tickets->TicketPriorities->find('list', limit: 200)->all();
-        $statuses = $this->Tickets->Statuses->find('list', limit: 200)->all();
-        $tags = $this->Tickets->Tags->find('list', limit: 200)->all();
+        $categories = $this->Tickets->Categories->find('list', ['limit' => 200])->all();
+        $ticketPriorities = $this->Tickets->TicketPriorities->find('list', ['limit' => 200])->all();
+        $statuses = $this->Tickets->Statuses->find('list', ['limit' => 200])->all();
+        $tags = $this->Tickets->Tags->find('list', ['limit' => 200])->all();
         $this->set(compact('ticket', 'categories', 'ticketPriorities', 'statuses', 'tags'));
     }
 

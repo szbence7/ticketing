@@ -97,4 +97,11 @@ class UsersController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
+
+    // Add this method if it doesn't exist
+    public function logout()
+    {
+        $this->loadComponent('Flash');
+        return $this->redirect($this->Auth->logout());
+    }
 }
