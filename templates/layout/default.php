@@ -40,8 +40,26 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
             <a href="<?= $this->Url->build('/') ?>"><span>Cake</span>PHP</a>
         </div>
         <div class="top-nav-links">
-            <a target="_blank" rel="noopener" href="https://book.cakephp.org/5/">Documentation</a>
-            <a target="_blank" rel="noopener" href="https://api.cakephp.org/">API</a>
+            <?php
+            $session = $this->request->getSession();
+            $identity = $this->request->getAttribute('identity');
+            $user = null;
+
+            if ($identity) {
+                $user = $identity;
+            } elseif ($session->check('Auth.User')) {
+                $user = $session->read('Auth.User');
+            } elseif ($session->check('Auth')) {
+                $user = $session->read('Auth');
+            }
+            ?>
+
+            <?php if ($user): ?>
+                <span>Welcome, <?= h(is_object($user) ? $user->username : ($user['username'] ?? 'User')) ?></span>
+                <?= $this->Html->link('Logout', ['plugin' => 'CakeDC/Users', 'controller' => 'Users', 'action' => 'logout'], ['class' => 'button']) ?>
+            <?php else: ?>
+                <?= $this->Html->link('Login', ['plugin' => 'CakeDC/Users', 'controller' => 'Users', 'action' => 'login'], ['class' => 'button']) ?>
+            <?php endif; ?>
         </div>
     </nav>
     <main class="main">

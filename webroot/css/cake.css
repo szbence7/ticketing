@@ -325,11 +325,20 @@ input[type='color'] {
 }
 
 .reply.logged-in {
-    background-color: #dcf8c6; /* Light green for logged-in user replies */
+    background-color: #0000fc; /* Blue background for logged-in user replies */
+    color: white;
+    float: right;
+}
+
+.reply.logged-in.superuser {
+    background-color: #00f639 !important; /* Green background for superuser replies */
+    color: black;
+    float: right;
 }
 
 .reply.logged-out {
-    background-color: #e5e5ea; /* Keep the grey background for logged-out users if needed */
+    background-color: #e5e5ea; /* Grey background for logged-out users */
+    float: left;
 }
 
 .message-bubble small {
@@ -373,4 +382,25 @@ input[type='color'] {
     background-color: #0000fc;
     color: white;
     float: left;
+}
+
+.top-nav-links {
+    display: flex;
+    align-items: center;
+}
+
+.top-nav-links span {
+    margin-right: 10px;
+}
+
+.top-nav-links .button {
+    padding: 5px 10px;
+    border-radius: 3px;
+    background-color: #D33C43;
+    color: white;
+    text-decoration: none;
+}
+
+.top-nav-links .button:hover {
+    background-color: #B33C43;
 }

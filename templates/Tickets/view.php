@@ -60,7 +60,20 @@
                     </div>
                     <?php if (!empty($ticket->ticket_histories)): ?>
                         <?php foreach ($ticket->ticket_histories as $history): ?>
-                            <div class="message-bubble reply <?= $history->changed_by ? 'logged-in' : 'logged-out' ?>">
+                            <?php
+                            $bubbleClass = 'reply';
+                            if ($history->changed_by) {
+                                $bubbleClass .= ' logged-in';
+                                // Check if the user who made this reply is a superuser
+                                $replier = $this->getRequest()->getAttribute('identity');
+                                if ($replier && $replier->is_superuser) {
+                                    $bubbleClass .= ' superuser';
+                                }
+                            } else {
+                                $bubbleClass .= ' logged-out';
+                            }
+                            ?>
+                            <div class="message-bubble <?= $bubbleClass ?>">
                                 <?php if ($history->reply_content): ?>
                                     <?= $this->Text->autoParagraph(h($history->reply_content)); ?>
                                 <?php else: ?>

@@ -17,6 +17,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use Cake\Controller\Controller;
+use CakeDC\Users\Controller\Component\UsersAuthComponent;
 
 /**
  * Application Controller
@@ -41,7 +42,6 @@ class AppController extends Controller
     {
         parent::initialize();
 
-        $this->loadComponent('Flash');
         $this->loadComponent('CakeDC/Users.UsersAuth');
 
         // Load any other components you need
