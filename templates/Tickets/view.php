@@ -61,7 +61,11 @@
                     <?php if (!empty($ticket->ticket_histories)): ?>
                         <?php foreach ($ticket->ticket_histories as $history): ?>
                             <div class="message-bubble reply <?= $history->changed_by ? 'logged-in' : 'logged-out' ?>">
-                                <?= $this->Text->autoParagraph(h($history->reply_content)); ?>
+                                <?php if ($history->reply_content): ?>
+                                    <?= $this->Text->autoParagraph(h($history->reply_content)); ?>
+                                <?php else: ?>
+                                    <p><?= __('Status changed to: {0}', h($history->status->status_name)) ?></p>
+                                <?php endif; ?>
                                 <small><?= h($history->changed_at) ?></small>
                             </div>
                         <?php endforeach; ?>

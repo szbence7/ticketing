@@ -301,7 +301,7 @@ input[type='color'] {
 /* Add these new styles at the end of the file */
 .ticket-conversation {
     margin: 20px 0;
-    border: 1px solid #e0e0e0;
+    
     border-radius: 5px;
     padding: 10px;
 }
@@ -320,9 +320,23 @@ input[type='color'] {
 }
 
 .reply {
-    background-color: #007aff;
-    color: white;
+    background-color: #dcf8c6; /* Light green background for all replies */
     float: right;
+}
+
+.reply.logged-in {
+    background-color: #dcf8c6; /* Light green for logged-in user replies */
+}
+
+.reply.logged-out {
+    background-color: #e5e5ea; /* Keep the grey background for logged-out users if needed */
+}
+
+.message-bubble small {
+    display: block;
+    font-size: 0.7em;
+    color: whitesmoke;
+    text-align: right;
 }
 
 .reply-form {
@@ -345,21 +359,18 @@ input[type='color'] {
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .message-bubble.logged-in {
-    background-color: #d4edda;
+    background-color: #00f639;
     float: right;
 }
 
 .message-bubble.logged-out {
-    background-color: #e5e5ea;
+    background-color: #0000fc;
+    color: white;
     float: left;
-}
-
-.message-bubble small {
-    display: block;
-    font-size: 0.8em;
-    color: #6c757d;
-    text-align: right;
 }

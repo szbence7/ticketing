@@ -33,6 +33,7 @@ class TicketHistory extends Entity
         'status_id' => true,
         'changed_by' => true,
         'changed_at' => true,
+        'reply_content' => true,  // Add this line
         'ticket' => true,
         'status' => true,
     ];

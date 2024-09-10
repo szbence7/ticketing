@@ -35,7 +35,20 @@ class TicketsController extends AppController
      */
     public function view($id = null)
     {
-        $ticket = $this->Tickets->get($id, contain: ['Users', 'Categories', 'TicketPriorities', 'Statuses', 'Tags', 'Assignments', 'TicketHistories']);
+        $ticket = $this->Tickets->get($id, [
+            'contain' => [
+                'Users', 
+                'Categories', 
+                'TicketPriorities', 
+                'Statuses',
+                'TicketHistories' => [
+                    'sort' => ['TicketHistories.changed_at' => 'ASC'],
+                    'Statuses'
+                ],
+                'Tags'
+            ],
+        ]);
+
         $this->set(compact('ticket'));
     }
 
@@ -143,7 +156,7 @@ class TicketsController extends AppController
     public function addReply($id = null)
     {
         $this->request->allowMethod(['post']);
-        $ticket = $this->Tickets->get($id);
+        $ticket = $this->Tickets->get($id, ['contain' => ['Statuses']]);
         
         $user = $this->getRequest()->getAttribute('identity');
         $changed_by = $user ? $user->id : null;
