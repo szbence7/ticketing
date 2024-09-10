@@ -55,7 +55,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
             ?>
 
             <?php if ($user): ?>
-                <span>Welcome, <?= h(is_object($user) ? $user->username : ($user['username'] ?? 'User')) ?></span>
+                <span><?= $this->User->welcome()?></span>
                 <?= $this->Html->link('Logout', ['plugin' => 'CakeDC/Users', 'controller' => 'Users', 'action' => 'logout'], ['class' => 'button']) ?>
             <?php else: ?>
                 <?= $this->Html->link('Login', ['plugin' => 'CakeDC/Users', 'controller' => 'Users', 'action' => 'login'], ['class' => 'button']) ?>
