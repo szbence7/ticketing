@@ -406,3 +406,23 @@ input[type='color'] {
 .top-nav-links .button:hover {
     background-color: #B33C43;
 }
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice {
+    background-color: #f5f7fa !important;
+    color: rgb(0, 0, 0);
+    border: .5px solid #000000 !important;
+}
+
+.select2-selection__choice__remove {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0 5px;
+    border-right: .5px solid #000000 !important;
+    border-radius: 0% !important;
+    color: black !important;
+    cursor: pointer;
+    background-color: #f5f7fa !important;
+
+
+}
