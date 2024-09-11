@@ -56,6 +56,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 
             <?php if ($user): ?>
                 <span><?= $this->User->welcome()?></span>
+                <?= $this->Html->link(__('Admin Dashboard'), ['controller' => 'AdminDashboard', 'action' => 'index'], ['class' => 'button']) ?>
                 <?= $this->Html->link('Logout', ['plugin' => 'CakeDC/Users', 'controller' => 'Users', 'action' => 'logout'], ['class' => 'button']) ?>
             <?php else: ?>
                 <?= $this->Html->link('Login', ['plugin' => 'CakeDC/Users', 'controller' => 'Users', 'action' => 'login'], ['class' => 'button']) ?>

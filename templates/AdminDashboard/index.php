@@ -33,11 +33,6 @@
         <div class="content">
             <h2><?= __('Welcome to the Admin Dashboard') ?></h2>
             
-            <!-- Debug information -->
-            <div style="background-color: #f0f0f0; padding: 10px; margin-bottom: 20px;">
-                <h3>Debug Information:</h3>
-                <pre><?php print_r(compact('totalTickets', 'openTickets', 'closedTickets')); ?></pre>
-            </div>
             
             <div class="dashboard-stats">
                 <h3><?= __('Ticket Statistics') ?></h3>
