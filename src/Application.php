@@ -61,7 +61,7 @@ class Application extends BaseApplication
             $this->addPlugin('DebugKit');
         }
 
-        // Add this line to load the CakeDC/Users plugin
+        // Load the CakeDC/Users plugin
         $this->addPlugin(\CakeDC\Users\Plugin::class);
     }
 

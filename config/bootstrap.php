@@ -231,4 +231,4 @@ ServerRequest::addDetector('tablet', function ($request) {
 // Plugin::load('CakeDC/Users', ['routes' => true, 'bootstrap' => true]);
 
 // Load the CakeDC/Users plugin
-Plugin::getCollection()->add(new \CakeDC\Users\Plugin());
+\Cake\Core\Plugin::getCollection()->add(new \CakeDC\Users\Plugin());
