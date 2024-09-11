@@ -80,6 +80,18 @@ return function (RouteBuilder $routes): void {
         $builder->connect('/tickets/add', ['controller' => 'Tickets', 'action' => 'add']);
     });
 
+    $routes->plugin(
+        'CakeDC/Users',
+        ['path' => '/users'],
+        function (RouteBuilder $routes) {
+            $routes->connect('/', ['controller' => 'Users', 'action' => 'index']);
+            $routes->connect('/{action}/*', ['controller' => 'Users']);
+            $routes->fallbacks('DashedRoute');
+        }
+    );
+
+    $routes->connect('/admin-dashboard', ['controller' => 'AdminDashboard', 'action' => 'index']);
+
     /*
      * If you need a different set of middleware or none at all,
      * open new scope and define routes there.

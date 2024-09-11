@@ -3,12 +3,9 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-/**
- * Users Controller
- *
- * @property \App\Model\Table\UsersTable $Users
- */
-class UsersController extends AppController
+use CakeDC\Users\Controller\UsersController as BaseUsersController;
+
+class UsersController extends BaseUsersController
 {
     /**
      * Index method
@@ -103,5 +100,25 @@ class UsersController extends AppController
     {
         $this->loadComponent('Flash');
         return $this->redirect($this->Auth->logout());
+    }
+
+    public function verify()
+    {
+        $this->getRequest()->allowMethod(['get', 'post']);
+        $user = $this->getRequest()->getSession()->read('Users.GoogleAuthenticator.user');
+        if (!$user) {
+            $this->Flash->error(__d('cake_d_c/users', 'Invalid request.'));
+            return $this->redirect('/');
+        }
+        if ($this->getRequest()->is('post')) {
+            $verificationCode = $this->getRequest()->getData('code');
+            if ($this->Users->GoogleAuthenticator->verifyCode($user['secret'], $verificationCode)) {
+                $this->getRequest()->getSession()->delete('Users.GoogleAuthenticator');
+                $this->Auth->setUser($user);
+                return $this->redirect($this->Auth->redirectUrl());
+            }
+            $this->Flash->error(__d('cake_d_c/users', 'Invalid verification code.'));
+        }
+        $this->set(compact('user'));
     }
 }
