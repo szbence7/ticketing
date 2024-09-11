@@ -43,6 +43,7 @@ use Cake\Mailer\Mailer;
 use Cake\Mailer\TransportFactory;
 use Cake\Routing\Router;
 use Cake\Utility\Security;
+use Cake\Core\Plugin;
 
 /**
  * Load global functions.
@@ -228,3 +229,6 @@ ServerRequest::addDetector('tablet', function ($request) {
 
 // Comment out or remove this line
 // Plugin::load('CakeDC/Users', ['routes' => true, 'bootstrap' => true]);
+
+// Load the CakeDC/Users plugin
+Plugin::getCollection()->add(new \CakeDC\Users\Plugin());
