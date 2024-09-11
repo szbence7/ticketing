@@ -45,7 +45,11 @@
         "sort-packages": true
     },
     "scripts": {
-        "post-install-cmd": "App\\Console\\Installer::postInstall",
+        "post-install-cmd": [
+            "App\\Console\\Installer::postInstall",
+            "@php bin/cake plugin assets symlink",
+            "@php bin/cake cache clear_all"
+        ],
         "post-create-project-cmd": "App\\Console\\Installer::postInstall",
         "check": [
             "@test",
