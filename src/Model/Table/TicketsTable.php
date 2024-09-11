@@ -159,11 +159,14 @@ class TicketsTable extends Table
     private function generateUniqueTicketNumber()
     {
         $characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $year = date('Y');
+        $monthDay = date('md');
         do {
-            $ticketNumber = '';
-            for ($i = 0; $i < 15; $i++) {
-                $ticketNumber .= $characters[rand(0, strlen($characters) - 1)];
+            $randomPart = '';
+            for ($i = 0; $i < 11; $i++) {
+                $randomPart .= $characters[rand(0, strlen($characters) - 1)];
             }
+            $ticketNumber = $year . $randomPart . $monthDay;
         } while ($this->exists(['ticket_number' => $ticketNumber]));
         
         return $ticketNumber;
